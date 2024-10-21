@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Gift Organizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background" id="backgroundShapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form id="loginContainer">
+        <h3>Enter your password</h3>
+        <input type="password" placeholder="Password" id="password">
+        <button onclick="login(event)">Log In</button>
+        <p id="loginError" class="error"></p>
+    </form>
+
+    <div id="giftListContainer" style="display: none;">
+        <h2>Your Gift List</h2>
+        <ul id="giftList"></ul>
+        <input type="text" id="newGift" placeholder="Add a new gift">
+        <button onclick="addGift()">Add Gift</button>
+        <button onclick="logout()">Log Out</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</body>
+</html>
