@@ -1,7 +1,8 @@
-// Initialize Supabase
-const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co'; // Your Supabase URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc'; // Your Supabase anon key
-const supabase = supabase.createClient(supabaseUrl, supabaseKey); // Correctly create Supabase client
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co'
+const supabaseKey = process.env.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 async function login(event) {
     event.preventDefault();
@@ -21,9 +22,9 @@ async function login(event) {
 }
 
 async function loadGiftList() {
-    const user = supabase.auth.user(); // Get the currently authenticated user
+    const { data: { user }, error: userError } = await supabase.auth.getUser(); // Get the currently authenticated user
 
-    if (!user) {
+    if (userError || !user) {
         console.error('No user is logged in');
         return;
     }
@@ -55,9 +56,9 @@ async function addGift() {
     const newGift = newGiftInput.value.trim();
 
     if (newGift) {
-        const user = supabase.auth.user(); // Get the currently authenticated user
+        const { data: { user }, error: userError } = await supabase.auth.getUser(); // Get the currently authenticated user
 
-        if (!user) {
+        if (userError || !user) {
             console.error('No user is logged in');
             return;
         }
@@ -82,4 +83,3 @@ function logout() {
     document.getElementById('loginContainer').style.display = 'block';
     document.getElementById('backgroundShapes').style.display = 'block'; // Show circles again on logout
 }
-
