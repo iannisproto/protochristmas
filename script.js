@@ -1,6 +1,7 @@
-const { createClient } = supabase;
+// Initialize Supabase client
+const { createClient } = supabase; // Make sure the supabase library is loaded before this line
 const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc'; // Replace with your Supabase key
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function login(event) {
@@ -47,6 +48,8 @@ async function addGift() {
     const newGiftInput = document.getElementById('newGift');
     const newGift = newGiftInput.value.trim();
 
+    console.log("Adding gift:", newGift); // Log the gift being added
+
     if (newGift) {
         const userId = 'defaultUser'; // Change this to handle user IDs properly
         
@@ -57,9 +60,12 @@ async function addGift() {
         if (error) {
             console.error('Error adding gift:', error);
         } else {
+            console.log("Gift added successfully:", data); // Log the success
             newGiftInput.value = ''; // Clear input
             loadGiftList(); // Reload the list after adding
         }
+    } else {
+        console.log("No gift to add."); // Log if input is empty
     }
 }
 
