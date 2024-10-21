@@ -1,7 +1,8 @@
 // Initialize Supabase client
+const { createClient } = supabase; // Correctly destructure the createClient function
 const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc'; // Replace with your Supabase key
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey); // Correct way to initialize
 
 function login(event) {
     event.preventDefault();
