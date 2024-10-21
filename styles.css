@@ -70,6 +70,7 @@ input {
     margin-top: 86px;
     font-size: 14px;
     font-weight: 300;
+    color: white;
 }
 ::placeholder {
     color: #e5e5e5;
