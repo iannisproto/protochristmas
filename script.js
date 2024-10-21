@@ -1,8 +1,7 @@
 // Initialize Supabase client
-const { createClient } = supabase; // Correctly destructure the createClient function
-const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc'; // Replace with your Supabase key
-const supabase = createClient(supabaseUrl, supabaseKey); // Correct way to initialize
+const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co'; // Replace with your Supabase URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc'; // Replace with your Supabase anon key
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 function login(event) {
     event.preventDefault();
@@ -22,12 +21,13 @@ function login(event) {
 }
 
 async function loadGiftList() {
-    const userId = 'defaultUser'; // Change this to handle user IDs properly
-    
+    const { user } = await supabase.auth.getUser();
+    const userId = user.id; // Get the currently authenticated user's ID
+
     const { data: gifts, error } = await supabase
         .from('gifts')
         .select('*')
-        .eq('user_id', userId);
+        .neq('user_id', userId); // Only load gifts that do not belong to the current user
     
     if (error) {
         console.error('Error loading gifts:', error);
@@ -48,10 +48,9 @@ async function addGift() {
     const newGiftInput = document.getElementById('newGift');
     const newGift = newGiftInput.value.trim();
 
-    console.log("Adding gift:", newGift); // Log the gift being added
-
     if (newGift) {
-        const userId = 'defaultUser'; // Change this to handle user IDs properly
+        const { user } = await supabase.auth.getUser();
+        const userId = user.id; // Get the currently authenticated user's ID
         
         const { data, error } = await supabase
             .from('gifts')
@@ -60,12 +59,9 @@ async function addGift() {
         if (error) {
             console.error('Error adding gift:', error);
         } else {
-            console.log("Gift added successfully:", data); // Log the success
             newGiftInput.value = ''; // Clear input
             loadGiftList(); // Reload the list after adding
         }
-    } else {
-        console.log("No gift to add."); // Log if input is empty
     }
 }
 
