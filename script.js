@@ -1,7 +1,10 @@
-// Initialize Supabase client
-const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co'; // Replace with your Supabase URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc'; // Replace with your Supabase anon key
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+// Import Supabase client
+const { createClient } = supabase; // Remove this line
+
+// Initialize Supabase
+const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co'; // Your Supabase URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc'; // Your Supabase anon key
+const supabase = createClient(supabaseUrl, supabaseKey); // Correctly create Supabase client
 
 async function login(event) {
     event.preventDefault();
