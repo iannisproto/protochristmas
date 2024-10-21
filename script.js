@@ -5,10 +5,6 @@ const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co'
 const supabaseKey = process.env.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-// Correctly create the Supabase client
-const { createClient } = supabase; // Destructure createClient
-const supabase = createClient(supabaseUrl, supabaseKey); // Create the client
-
 async function login(event) {
     event.preventDefault();
     const passwordInput = document.getElementById('password').value;
@@ -27,7 +23,7 @@ async function login(event) {
 }
 
 async function loadGiftList() {
-    const user = supabase.auth.user(); // Get the currently authenticated user
+    const { data: { user } } = await supabase.auth.getUser(); // Get the currently authenticated user
 
     if (!user) {
         console.error('No user is logged in');
@@ -61,7 +57,7 @@ async function addGift() {
     const newGift = newGiftInput.value.trim();
 
     if (newGift) {
-        const user = supabase.auth.user(); // Get the currently authenticated user
+        const { data: { user } } = await supabase.auth.getUser(); // Get the currently authenticated user
 
         if (!user) {
             console.error('No user is logged in');
