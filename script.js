@@ -2,8 +2,9 @@
 const supabaseUrl = 'https://bxolcjhxlttrdbdipopa.supabase.co'; // Your Supabase URL
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4b2xjamh4bHR0cmRiZGlwb3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0MzczNjgsImV4cCI6MjA0NTAxMzM2OH0.CpEyTjh0Td7Sts9t5LY8FUNR9cgiH0wPp5iTzNwIbGc'; // Your Supabase anon key
 
-// Create the Supabase client
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+// Correctly create the Supabase client
+const { createClient } = supabase; // Destructure createClient
+const supabase = createClient(supabaseUrl, supabaseKey); // Create the client
 
 async function login(event) {
     event.preventDefault();
